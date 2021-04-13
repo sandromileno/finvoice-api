@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  invoice_db:
+    image: "postgres"
+    container_name: "invoice-postgres"
+    environment:
+      POSTGRES_USER: finvoice_app_user
+      POSTGRES_PASSWORD: "Pa55w0rd"
+      POSTGRES_DB: invoice_db
+    ports:
+      - "5432:5432"
+  invoice_redis:
+    image: "redis:6.2.1-alpine"
+    container_name: "invoice-redis"
+    ports:
+      - "6379:6379"
+  invoice_api:
+    image: "finvoice-api:latest"
+    container_name: "invoice-app"
+    environment:
+      DATABASE_USER: "finvoice_app_user"
+      DATABASE_PASSWORD: "Pa55w0rd"
+      DATABASE_HOST: "invoice_db"
+      REDIS_URL: "redis://invoice_redis:6379/0/cache"
+      RAILS_ENV: "development"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "invoice_db"
+      - "invoice_redis"
