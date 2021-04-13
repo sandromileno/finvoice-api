@@ -1,4 +1,4 @@
-# This challenge was created using two dependencies:
+# This challenge was created using two dependencies
 
 - [Postgres](https://hub.docker.com/_/postgres)
 - [Redis](https://hub.docker.com/_/redis)
