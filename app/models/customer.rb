@@ -4,6 +4,7 @@ class Customer < ApplicationRecord
   # associations
   has_many :invoices
   has_one :user
+  belongs_to :user
 
   # validations
   validates :full_name, :document, presence: true

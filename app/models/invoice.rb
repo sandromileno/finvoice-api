@@ -5,8 +5,8 @@ class Invoice < ApplicationRecord
 
   # associations
   belongs_to :customer
-  has_many :payments
-  has_many :chargebacks
+  has_many :payments, dependent: :destroy
+  has_many :chargebacks, dependent: :destroy
   has_one_attached :document, dependent: :destroy
 
   # validations
