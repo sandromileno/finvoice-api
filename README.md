@@ -45,7 +45,8 @@ Requirements
 Quick Start
 -----------
 All stack can be created only running `development/up_development_environemnt.sh`:
-1. To create the stack run `./development/up_development_environemnt.sh`.
+1. To create entire stack run `./development/up_development_environemnt.sh`(Attention: check if `.sh` has execution permission).
+   - `chmod u+x up_development_environment.sh`
 2. To destroy the stack just run `docker-compose down`.
 3. Open postman and import collection file `finvoice_postman_collection.json` in the same folder as the file sh file.
 4. Create four global variables in postman.
@@ -64,3 +65,8 @@ Instructions
 3. Create a customer, using `Create Customer` API (A customer can be a company).
 4. Create a invoice, using `Create Invoice` API.
 5. After that you can explore the APIs.
+
+Notes
+-----------
+- The endpoints that have financial operations have idempotency control, which can be used by passing the header: `Idempotency-key`, so you can retain the same operation avoiding duplication of information in the database.
+- The application is using a real control of authentication and can be used with browser clients(cookies) and backend clients(JWT).
