@@ -1,7 +1,7 @@
 class CreateInvoices < ActiveRecord::Migration[6.1]
   def change
     create_table :invoices do |t|
-      t.uuid :key, null: false
+      t.string :key, null: false
       t.string :external_key, limit: 255, null: false
       t.decimal :amount, precision: 10, scale: 6, null: false
       t.decimal :paid, precision: 10, scale: 6, default: 0.0, null: false

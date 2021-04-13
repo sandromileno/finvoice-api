@@ -3,7 +3,7 @@ class Chargebacks::Create
     Chargeback.transaction do
       invoice = Invoice.by_invoice_id(chargeback.invoice_id)
       chargeback = invoice.add_chargeback(chargeback)
-      invoice.save()
+      invoice.save!()
       chargeback
     end
   rescue BusinessError
