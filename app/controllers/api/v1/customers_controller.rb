@@ -17,7 +17,7 @@ class Api::V1::CustomersController < ApplicationController
    private
 
    def load_customer
-     @customer = Customer.by_customer_id(params[:id]).first
+     @customer = Customer.by_customer_id(params[:id])
    end
 
    def build_customer

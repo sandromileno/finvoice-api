@@ -1,10 +1,13 @@
 require "rails_helper"
 
-RSpec.describe "Api::V1::CustomersController", :type => :request do
+RSpec.describe "Api::V1::CustomersController#create", :type => :request do
   subject do
     post '/api/v1/customers', params: body, headers: headers
     response
   end
+
+  let(:user) { build(:create_user_request) }
+
   context 'when create new customer and user is not authenticated' do
     let(:headers) {{}}
     let(:body) { { document: rand(10000...99999).to_s,  full_name: 'Test' } }
@@ -13,8 +16,8 @@ RSpec.describe "Api::V1::CustomersController", :type => :request do
 
   context 'when create new customer' do
     before do
-      post '/sign_up', params: { user: { email: 'test@gmail.com', password: '123456', password_confirmation: '123456' } }
-      post '/sign_in', params: { user: { email: 'test@gmail.com', password: '123456' } }
+      post '/sign_up', params: user
+      post '/sign_in', params: user
     end
     let(:headers) {{ Authorization: response.headers['Authorization'] }}
     let(:body) { { document: rand(10000...99999).to_s,  full_name: 'Test' } }
@@ -23,8 +26,8 @@ RSpec.describe "Api::V1::CustomersController", :type => :request do
 
   context 'when create new customer with invalid document' do
     before do
-      post '/sign_up', params: { user: { email: 'test@gmail.com', password: '123456', password_confirmation: '123456' } }
-      post '/sign_in', params: { user: { email: 'test@gmail.com', password: '123456' } }
+      post '/sign_up', params: user
+      post '/sign_in', params: user
     end
     let(:headers) {{ Authorization: response.headers['Authorization'] }}
     let(:body) { { document: 'ad3434343',  full_name: 'Test' } }
@@ -36,8 +39,8 @@ RSpec.describe "Api::V1::CustomersController", :type => :request do
 
   context 'when unexpected error on create new customer' do
     before do
-      post '/sign_up', params: { user: { email: 'test@gmail.com', password: '123456', password_confirmation: '123456' } }
-      post '/sign_in', params: { user: { email: 'test@gmail.com', password: '123456' } }
+      post '/sign_up', params: user
+      post '/sign_in', params: user
       allow_any_instance_of(Customer).to receive(:save).and_raise(StandardError)
     end
     let(:headers) {{ Authorization: response.headers['Authorization'] }}

@@ -3,7 +3,7 @@ FactoryBot.define do
     amount { 200.4 }
     external_key  { SecureRandom.uuid }
     key { SecureRandom.uuid }
-    due_date { Date.new(2021, 12, 8) }
+    due_date { Time.now.utc }
     paid { 0 }
     chargebacked { 0 }
     status { "PENDING" }

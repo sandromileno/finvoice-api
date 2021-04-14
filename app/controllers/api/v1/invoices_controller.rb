@@ -9,7 +9,7 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def create
-    return render json: @invoice.error_messages, status: :bad_request unless @invoice.valid?
+    return render json: @invoice.error_messages, status: :bad_request unless @invoice.valid? && params[:scan]
     render json: Invoices::Create.execute(@invoice, params[:scan]), status: :created
   rescue BusinessError => err
     render json: err.errors, status: :bad_request
