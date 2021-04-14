@@ -54,7 +54,7 @@ class Invoice < ApplicationRecord
   end
 
   def paid?
-    Invoice::INVALID.eql?(self.status)
+    Invoice::PAID.eql?(self.status)
   end
 
   def pending?
@@ -67,7 +67,7 @@ class Invoice < ApplicationRecord
   end
 
   def change_amount!(amount)
-    raise "" if amount > self.paid && !pending?
+    raise InvalidAmountChangeBusinessError if amount > self.paid || !pending?
     self.amount = amount
   end
 
